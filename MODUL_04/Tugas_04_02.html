@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pencarian Alumni</title>
+    <link rel="stylesheet" type="text/css" href="Tugas_04_02.css" />
+  </head>
+  <body>
+    <h2>Daftar Alumni</h2>
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Cari berdasarkan nama atau jurusan..."
+      onkeyup="filterAlumni()"
+    />
+
+    <table id="alumniTable">
+      <thead>
+        <tr>
+          <th>Nama</th>
+          <th>Jurusan</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Diva Divanti</td>
+          <td>Teknik Informatika</td>
+        </tr>
+        <tr>
+          <td>Euis Serawati</td>
+          <td>Manajemen</td>
+        </tr>
+        <tr>
+          <td>Genta Sunarya</td>
+          <td>Teknik Sipil</td>
+        </tr>
+        <tr>
+          <td>Irlangga Pratama</td>
+          <td>Sistem Informasi</td>
+        </tr>
+        <tr>
+          <td>Tata Perawati</td>
+          <td>Akuntansi</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <script>
+      function filterAlumni() {
+        const input = document.getElementById("searchInput");
+        const filter = input.value.toLowerCase();
+        const table = document.getElementById("alumniTable");
+        const tr = table.getElementsByTagName("tr");
+
+        for (let i = 1; i < tr.length; i++) {
+          const tdName = tr[i].getElementsByTagName("td")[0];
+          const tdJurusan = tr[i].getElementsByTagName("td")[1];
+          if (tdName || tdJurusan) {
+            const txtValueName = tdName.textContent || tdName.innerText;
+            const txtValueJurusan =
+              tdJurusan.textContent || tdJurusan.innerText;
+            if (
+              txtValueName.toLowerCase().indexOf(filter) > -1 ||
+              txtValueJurusan.toLowerCase().indexOf(filter) > -1
+            ) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
+          }
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,92 @@
+body {
+  font-family: monospace;
+  font-size: 13pt;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+}
+
+th {
+  text-align: left;
+}
+
+img {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.kotak {
+  border: 1px solid black;
+  width: 60%;
+  margin: 20px auto;
+  padding: 20px;
+  background: white;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.judul {
+  text-align: center;
+  background: palevioletred;
+  color: black;
+  padding: 10px 0;
+  font-size: 18pt;
+}
+
+.blok {
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+.kiri {
+  width: 20%;
+  float: left;
+}
+
+.kanan {
+  width: 70%;
+  padding: 0px 20px;
+  float: left;
+}
+
+table {
+  width: 100%;
+}
+
+ul {
+  list-style-type: square;
+  margin-left: 20px;
+}
+
+button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: palevioletred;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14pt;
+}
+
+button:hover {
+  background-color: blue;
+  color: white;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+@media only screen and (max-width: 768px) {
+  .kotak {
+    width: 100%;
+    padding: 0px;
+    border: none;
+  }
+
+  .kiri {
+    width: 100%;
+  }
+
+  .kanan {
+    width: 100%;
+    padding: 0;
+  }
+}
