@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contoh .hide() dan .fadeOut()</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("#hideButton").click(function () {
+          $("#box1").hide(); // Menyembunyikan tanpa animasi
+        });
+
+        $("#fadeOutButton").click(function () {
+          $("#box2").fadeOut(); // Menyembunyikan dengan efek memudar
+        });
+      });
+    </script>
+    <style>
+      #box1,
+      #box2 {
+        width: 100px;
+        height: 100px;
+        background-color: pink;
+        margin: 10px;
+        color: black;
+        text-align: center;
+        line-height: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box1">Box 1</div>
+    <div id="box2">Box 2</div>
+    <button id="hideButton">Hide Box 1</button>
+    <button id="fadeOutButton">Fade Out Box 2</button>
+  </body>
+</html>
