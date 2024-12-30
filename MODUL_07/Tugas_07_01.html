@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lowongan Kerja</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h2>lowongan kerja</h2>
+      <form id="guestData" class="mb-4">
+        <div class="form-group">
+          <label for="guestId">ID:</label>
+          <input type="text" class="form-control" id="guestId" required />
+        </div>
+        <div class="form-group">
+          <label for="guestNama">Nama:</label>
+          <input type="text" class="form-control" id="guestNama" required />
+        </div>
+        <div class="form-group">
+          <label for="guestKerja">Judul Pekerjaan:</label>
+          <input type="text" class="form-control" id="guestKerja" required />
+        </div>
+        <div class="form-group">
+          <label for="guestTgl">Tanggal:</label>
+          <input type="text" class="form-control" id="guestTgl" required />
+        </div>
+        <div class="form-group">
+          <label for="guestSts">Status:</label>
+          <input type="text" class="form-control" id="guestSts" required />
+        </div>
+        <button type="submit" class="btn btn-primary" id="submit">Add</button>
+      </form>
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nama</th>
+            <th>Judul Pekerjaan</th>
+            <th>Tanggal</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="guestTableBody"></tbody>
+      </table>
+    </div>
+
+    <script>
+      $(document).ready(function () {
+        const script_url =
+          "https://script.google.com/macros/s/AKfycbwZlHa8CzwXo5ChA-Q6H38xCnx5TB6hFc8nBm6ZXHIMNKI5xViJarmJlZE4Y1gECt92XQ/exec";
+
+        loadGuests();
+
+        $("#guestData").on("submit", function (event) {
+          event.preventDefault();
+
+          const ID = $("#guestId").val();
+          const nama = $("#guestNama").val();
+          const JudulPekerjaan = $("#guestKerja").val();
+          const Tanggal = $("#guestTgl").val();
+          const Status = $("#guestSts").val();
+
+          const action = $("#submit").data("action") || "insert";
+
+          $.ajax({
+            url: script_url,
+            type: "GET",
+            dataType: "jsonp",
+            data: {
+              Id: ID,
+              nama: nama,
+              JudulPekerjaan: JudulPekerjaan,
+              Tanggal: Tanggal,
+              Deskripsi: Deskripsi,
+              Status: Status,
+              action: action,
+            },
+            success: function (response) {
+              alert(response.result);
+              $("#guestData")[0].reset();
+              $("#submit").text("Add").data("action", "insert");
+              loadGuests();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+              console.error("Request failed:", textStatus, errorThrown);
+            },
+          });
+        });
+
+        function loadGuests() {
+          $.ajax({
+            url: script_url,
+            type: "GET",
+            data: { action: "read" },
+            dataType: "json",
+            success: function (response) {
+              const tbody = $("#guestTableBody");
+              tbody.empty();
+
+              response.forEach((guest) => {
+                tbody.append(`
+                <tr>
+                  <td>${guest.Id}</td>
+                  <td>${guest.Nama}</td>
+                  <td>${guest.JudulPekerjaan}</td>
+                  <td>${guest.Tanggal}</td>
+                  <td>${guest.Status}</td>
+                  <td>
+                    <button class="btn btn-warning btn-sm edit-btn" data-id="${guest.Id}"
+                      data-nama="${guest.Nama}" data-judul="${guest.JudulPekerjaan}"
+                      data-tanggal="${guest.Tanggal}" data-status="${guest.Status}">Edit</button>
+                  </td>
+                </tr>
+              `);
+              });
+
+              $(".edit-btn").on("click", function () {
+                $("#guestId").val($(this).data("id"));
+                $("#guestNama").val($(this).data("nama"));
+                $("#guestKerja").val($(this).data("judul"));
+                $("#guestTgl").val($(this).data("tanggal"));
+                $("#guestSts").val($(this).data("status"));
+                $("#submit").text("Update").data("action", "edit");
+              });
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+              console.error("Request failed:", textStatus, errorThrown);
+            },
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
